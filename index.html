@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Germanish Pizzeria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1a1512;
+    --cream:#f6efe3;
+    --paper:#fffaf2;
+    --red:#c8321f;
+    --gold:#e9a822;
+    --olive:#4f5a2c;
+    --muted:#6d625a;
+    --line:#e4d8c4;
+    --radius:18px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"DM Sans",system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:"Fraunces",Georgia,serif;line-height:1.05;letter-spacing:-.01em}
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+
+  /* Stripe */
+  .stripe{height:8px;background:linear-gradient(90deg,var(--ink) 0 33.3%,var(--red) 33.3% 66.6%,var(--gold) 66.6%)}
+
+  /* Nav */
+  nav{position:sticky;top:0;z-index:20;background:rgba(246,239,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{display:flex;align-items:center;gap:10px;font-family:"Fraunces",serif;font-weight:900;font-size:1.2rem;text-decoration:none}
+  .logo svg{width:34px;height:34px}
+  .links{display:flex;gap:26px;list-style:none;font-weight:500;font-size:.95rem}
+  .links a{text-decoration:none;opacity:.8}
+  .links a:hover{opacity:1;color:var(--red)}
+  .btn{display:inline-block;background:var(--red);color:#fff;text-decoration:none;font-weight:700;padding:12px 22px;border-radius:999px;border:0;cursor:pointer;font-size:.95rem;font-family:inherit;transition:transform .15s,background .15s}
+  .btn:hover{background:#a92716;transform:translateY(-1px)}
+  .btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+  .btn.ghost:hover{background:var(--ink);color:var(--cream)}
+  .nav-cta{padding:9px 18px}
+  .menu-toggle{display:none;background:none;border:0;font-size:1.6rem;cursor:pointer}
+
+  /* Hero */
+  .hero{padding:72px 0 60px;overflow:hidden}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+  .eyebrow{display:inline-block;font-weight:700;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:18px}
+  .hero h1{font-size:clamp(3rem,7.5vw,5.6rem);font-weight:900}
+  .hero h1 em{font-style:italic;color:var(--red)}
+  .hero p.lede{font-size:1.15rem;color:var(--muted);max-width:30em;margin:22px 0 30px}
+  .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+  .pizza-art{position:relative;aspect-ratio:1;max-width:460px;justify-self:center;width:100%}
+  .pizza-art svg{width:100%;height:100%;animation:spin 80s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @media (prefers-reduced-motion:reduce){.pizza-art svg{animation:none}}
+  .badge{position:absolute;right:0;top:6%;background:var(--gold);color:var(--ink);width:116px;height:116px;border-radius:50%;display:grid;place-items:center;text-align:center;font-family:"Fraunces",serif;font-weight:900;font-size:.95rem;line-height:1.1;transform:rotate(12deg);box-shadow:0 10px 30px rgba(0,0,0,.15)}
+
+  /* Ticker */
+  .ticker{background:var(--ink);color:var(--cream);overflow:hidden;white-space:nowrap;padding:14px 0;font-family:"Fraunces",serif;font-size:1.15rem;font-weight:700}
+  .ticker span{display:inline-block;animation:tick 30s linear infinite}
+  .ticker b{color:var(--gold);margin:0 18px}
+  @keyframes tick{to{transform:translateX(-50%)}}
+
+  section{padding:90px 0}
+  .section-head{max-width:640px;margin-bottom:44px}
+  .section-head h2{font-size:clamp(2.2rem,5vw,3.4rem);font-weight:900}
+  .section-head p{color:var(--muted);margin-top:12px;font-size:1.05rem}
+
+  /* Menu */
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:30px}
+  .tab{background:var(--paper);border:1px solid var(--line);padding:9px 18px;border-radius:999px;font-family:inherit;font-weight:700;font-size:.9rem;cursor:pointer;color:var(--ink)}
+  .tab[aria-selected="true"]{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+  .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+  .item{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:24px;display:flex;flex-direction:column;gap:8px;transition:transform .2s,box-shadow .2s}
+  .item:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(60,40,20,.08)}
+  .item-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .item h3{font-size:1.35rem;font-weight:700}
+  .price{font-family:"Fraunces",serif;font-weight:900;color:var(--red);font-size:1.25rem;white-space:nowrap}
+  .item p{color:var(--muted);font-size:.95rem}
+  .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:6px}
+  .tag{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:3px 9px;border-radius:6px;background:#f1e6d2;color:var(--olive)}
+  .tag.hot{background:#fbe0da;color:var(--red)}
+  .tag.star{background:#fcefcc;color:#8a5d00}
+
+  /* Story */
+  .story{background:var(--ink);color:var(--cream)}
+  .story .wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .story h2{font-size:clamp(2.2rem,5vw,3.4rem);font-weight:900}
+  .story h2 em{color:var(--gold)}
+  .story p{color:#cfc4b4;margin-top:18px;font-size:1.05rem}
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .stat{border:1px solid #3a322c;border-radius:var(--radius);padding:26px}
+  .stat b{display:block;font-family:"Fraunces",serif;font-size:2.6rem;color:var(--gold);line-height:1}
+  .stat span{color:#cfc4b4;font-size:.92rem}
+
+  /* Visit */
+  .visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:32px}
+  .card h3{font-size:1.6rem;margin-bottom:16px}
+  .hours{list-style:none}
+  .hours li{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed var(--line)}
+  .hours li:last-child{border:0}
+  .hours li.today{color:var(--red);font-weight:700}
+  .contact-line{margin:6px 0;color:var(--muted)}
+  .contact-line strong{color:var(--ink)}
+
+  form{display:grid;gap:14px}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  label{font-size:.85rem;font-weight:700;display:block;margin-bottom:5px}
+  input,select{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;font:inherit;color:var(--ink)}
+  input:focus,select:focus{outline:2px solid var(--gold);border-color:var(--gold)}
+  .form-note{font-size:.85rem;color:var(--muted)}
+  .confirm{display:none;background:#eef2df;border:1px solid #c9d3a4;color:var(--olive);padding:16px;border-radius:12px;font-weight:500}
+
+  footer{background:var(--ink);color:#a99d8d;padding:40px 0;font-size:.9rem}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  footer .logo{color:var(--cream)}
+
+  @media (max-width:860px){
+    .hero .wrap,.story .wrap,.visit-grid{grid-template-columns:1fr}
+    .hero{padding:40px 0}
+    .pizza-art{max-width:340px;order:-1}
+    .badge{width:92px;height:92px;font-size:.8rem}
+    .links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:var(--cream);border-bottom:1px solid var(--line)}
+    .links.open{display:flex}
+    .links li a{display:block;padding:14px 22px}
+    .menu-toggle{display:block}
+    .nav-cta{display:none}
+    section{padding:64px 0}
+    .row{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div class="stripe"></div>
+
+<nav>
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="Germanish Pizzeria home">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#e9a822"/><circle cx="20" cy="20" r="15" fill="#c8321f"/><circle cx="14" cy="15" r="3" fill="#fffaf2"/><circle cx="25" cy="13" r="2.5" fill="#1a1512"/><circle cx="24" cy="25" r="3" fill="#fffaf2"/><circle cx="14" cy="26" r="2.5" fill="#4f5a2c"/></svg>
+      Germanish
+    </a>
+    <ul class="links" id="links">
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#story">Our story</a></li>
+      <li><a href="#visit">Visit</a></li>
+    </ul>
+    <a href="#visit" class="btn nav-cta">Reserve a table</a>
+    <button class="menu-toggle" id="toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Pizzeria · Biergarten · Since today</span>
+      <h1>Italian dough.<br><em>German</em> soul.</h1>
+      <p class="lede">Wood-fired pizza made the way Naples taught us, topped with everything Oma would approve of. Bratwurst, pretzel crusts, sauerkraut and a very serious attitude about beer.</p>
+      <div class="hero-actions">
+        <a href="#menu" class="btn">See the menu</a>
+        <a href="#visit" class="btn ghost">Book a table</a>
+      </div>
+    </div>
+    <div class="pizza-art" aria-hidden="true">
+      <svg viewBox="0 0 400 400">
+        <defs>
+          <radialGradient id="crust" cx="50%" cy="50%" r="50%">
+            <stop offset="86%" stop-color="#e9b766"/><stop offset="100%" stop-color="#b8762f"/>
+          </radialGradient>
+        </defs>
+        <circle cx="200" cy="200" r="190" fill="url(#crust)"/>
+        <circle cx="200" cy="200" r="160" fill="#c8321f"/>
+        <circle cx="200" cy="200" r="150" fill="#f4d48a" opacity=".55"/>
+        <g stroke="#b8762f" stroke-width="2" opacity=".5">
+          <line x1="200" y1="10" x2="200" y2="390"/><line x1="10" y1="200" x2="390" y2="200"/>
+          <line x1="66" y1="66" x2="334" y2="334"/><line x1="334" y1="66" x2="66" y2="334"/>
+        </g>
+        <!-- bratwurst slices -->
+        <g fill="#8a4a24" stroke="#5e2f14" stroke-width="3">
+          <circle cx="140" cy="130" r="20"/><circle cx="260" cy="150" r="20"/><circle cx="230" cy="270" r="20"/><circle cx="130" cy="250" r="20"/><circle cx="200" cy="200" r="18"/>
+        </g>
+        <!-- sauerkraut -->
+        <g stroke="#f3eccd" stroke-width="3" fill="none" stroke-linecap="round">
+          <path d="M175 120 q10 -8 20 0"/><path d="M285 210 q10 -8 20 0"/><path d="M95 190 q10 -8 20 0"/><path d="M170 300 q10 -8 20 0"/><path d="M250 100 q8 -6 16 0"/><path d="M290 270 q8 -6 16 0"/>
+        </g>
+        <!-- pretzel salt / herbs -->
+        <g fill="#4f5a2c">
+          <ellipse cx="190" cy="160" rx="7" ry="4" transform="rotate(30 190 160)"/><ellipse cx="240" cy="220" rx="7" ry="4" transform="rotate(-20 240 220)"/><ellipse cx="160" cy="210" rx="7" ry="4" transform="rotate(60 160 210)"/><ellipse cx="270" cy="250" rx="7" ry="4"/><ellipse cx="115" cy="160" rx="7" ry="4" transform="rotate(-40 115 160)"/>
+        </g>
+        <g fill="#fffaf2">
+          <rect x="60" y="120" width="5" height="5"/><rect x="330" y="230" width="5" height="5"/><rect x="200" y="30" width="5" height="5"/><rect x="250" y="360" width="5" height="5"/><rect x="40" y="250" width="5" height="5"/><rect x="340" y="140" width="5" height="5"/>
+        </g>
+      </svg>
+      <div class="badge">Pretzel<br>crust<br>+ €2</div>
+    </div>
+  </div>
+</header>
+
+<div class="ticker" aria-hidden="true">
+  <span>Wood-fired <b>✦</b> Bratwurst on everything <b>✦</b> Pretzel crust <b>✦</b> Biergarten open <b>✦</b> Prost &amp; Salute <b>✦</b> Wood-fired <b>✦</b> Bratwurst on everything <b>✦</b> Pretzel crust <b>✦</b> Biergarten open <b>✦</b> Prost &amp; Salute <b>✦</b> </span>
+</div>
+
+<section id="menu">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Die Speisekarte</span>
+      <h2>The menu</h2>
+      <p>Every pizza is 30&nbsp;cm, hand-stretched and baked at 450&nbsp;°C for about 90 seconds. Swap any base for our pretzel crust for €2.</p>
+    </div>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-cat="pizza">Pizzas</button>
+      <button class="tab" role="tab" aria-selected="false" data-cat="small">Snacks</button>
+      <button class="tab" role="tab" aria-selected="false" data-cat="sweet">Desserts</button>
+      <button class="tab" role="tab" aria-selected="false" data-cat="drink">Drinks</button>
+    </div>
+    <div class="menu-grid" id="menuGrid"></div>
+  </div>
+</section>
+
+<section class="story" id="story">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow" style="color:var(--gold)">Unsere Geschichte</span>
+      <h2>A little bit Napoli,<br>a lot of <em>Bavaria</em>.</h2>
+      <p>Germanish started with one question asked too late at a beer festival: what if a Margherita and a Brezel had a baby? Turns out the answer is delicious.</p>
+      <p>We use slow-fermented Italian dough, San Marzano tomatoes and real fior di latte — then we bring in the good stuff from home: smoky sausages from the butcher, tangy sauerkraut, sharp mustard and mountain cheese.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>48h</b><span>dough fermentation</span></div>
+      <div class="stat"><b>450°</b><span>wood-fired oven</span></div>
+      <div class="stat"><b>12</b><span>beers on tap</span></div>
+      <div class="stat"><b>1</b><span>very happy Oma</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="visit">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Besuch uns</span>
+      <h2>Come hungry</h2>
+      <p>Walk-ins welcome, but weekends fill up fast. Grab a table below.</p>
+    </div>
+    <div class="visit-grid">
+      <div class="card">
+        <h3>Opening hours</h3>
+        <ul class="hours" id="hours">
+          <li data-day="1"><span>Monday</span><span>Closed</span></li>
+          <li data-day="2"><span>Tuesday</span><span>17:00 – 22:00</span></li>
+          <li data-day="3"><span>Wednesday</span><span>17:00 – 22:00</span></li>
+          <li data-day="4"><span>Thursday</span><span>17:00 – 22:00</span></li>
+          <li data-day="5"><span>Friday</span><span>12:00 – 23:00</span></li>
+          <li data-day="6"><span>Saturday</span><span>12:00 – 23:00</span></li>
+          <li data-day="0"><span>Sunday</span><span>12:00 – 21:00</span></li>
+        </ul>
+        <div style="margin-top:22px">
+          <p class="contact-line"><strong>Address:</strong> Musterstraße 12, 10115 Berlin</p>
+          <p class="contact-line"><strong>Phone:</strong> +49 30 1234 5678</p>
+          <p class="contact-line"><strong>Email:</strong> hallo@germanish-pizzeria.de</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Reserve a table</h3>
+        <form id="reserve">
+          <div><label for="name">Name</label><input id="name" required placeholder="Your name"></div>
+          <div class="row">
+            <div><label for="date">Date</label><input id="date" type="date" required></div>
+            <div><label for="time">Time</label>
+              <select id="time" required>
+                <option value="">Choose…</option>
+                <option>12:00</option><option>13:00</option><option>17:00</option><option>18:00</option><option>19:00</option><option>20:00</option><option>21:00</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div><label for="guests">Guests</label>
+              <select id="guests"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7+</option></select>
+            </div>
+            <div><label for="phone">Phone</label><input id="phone" type="tel" placeholder="Optional"></div>
+          </div>
+          <button class="btn" type="submit">Request table</button>
+          <p class="form-note">Groups of 7 or more, please call us.</p>
+          <div class="confirm" id="confirm" role="status"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a href="#top" class="logo">Germanish Pizzeria</a>
+    <span>Prost &amp; buon appetito · © <span id="year"></span> Germanish Pizzeria</span>
+  </div>
+</footer>
+
+<script>
+const MENU = {
+  pizza: [
+    {n:"Margherita Mädchen", p:"€10.50", d:"San Marzano tomato, fior di latte, basil, olive oil. The classic, done properly.", t:["Vegetarian"]},
+    {n:"The Bratwurst Bomb", p:"€14.50", d:"Tomato, mozzarella, sliced Nürnberger bratwurst, sauerkraut, caramelised onion, mustard drizzle.", t:["Bestseller★"]},
+    {n:"Currywurst Classic", p:"€13.90", d:"Curry-ketchup base, mozzarella, Currywurst slices, a dusting of curry powder and crispy fries on top.", t:["Berlin Style","Spicy"]},
+    {n:"Flammkuchen Bianca", p:"€12.90", d:"Crème fraîche, smoked speck, red onion, chives. Thin, crisp and very Alsace-adjacent.", t:["White Pizza"]},
+    {n:"Schnitzel Supreme", p:"€15.90", d:"Tomato, mozzarella, strips of crispy pork schnitzel, lemon, parsley, lingonberry dots.", t:["Hearty"]},
+    {n:"Alpen Käse", p:"€13.50", d:"Bergkäse, Allgäuer Emmentaler, mozzarella, roasted mushrooms, thyme. Four mountains of cheese.", t:["Vegetarian"]},
+    {n:"Leberkäse Hawaii", p:"€13.90", d:"Tomato, mozzarella, Bavarian Leberkäse, grilled pineapple, sweet mustard. Yes, really.", t:["Controversial"]},
+    {n:"Spargel Season", p:"€14.90", d:"Hollandaise base, white asparagus, ham, new potatoes, chives. Spring only — ask your server.", t:["Seasonal"]}
+  ],
+  small: [
+    {n:"Giant Pretzel", p:"€6.50", d:"Fresh from the pizza oven, coarse salt, with Obatzda and sweet mustard.", t:["Vegetarian","Share"]},
+    {n:"Pizza Fries", p:"€5.90", d:"Crispy fries with tomato, melted mozzarella and oregano.", t:["Vegetarian"]},
+    {n:"Kartoffelsalat", p:"€4.90", d:"Swabian-style potato salad with cucumber, chives and a vinegar dressing.", t:["Vegan"]},
+    {n:"Garlic Brezel Knots", p:"€5.50", d:"Pretzel-dough knots brushed with garlic butter and parmesan.", t:["Vegetarian"]}
+  ],
+  sweet: [
+    {n:"Black Forest Pizza", p:"€8.90", d:"Chocolate base, sour cherries, whipped cream, a splash of Kirsch, chocolate shavings.", t:["Bestseller★"]},
+    {n:"Apfelstrudel Calzone", p:"€7.90", d:"Folded dough with cinnamon apples and raisins, served with vanilla sauce.", t:["Warm"]},
+    {n:"Tiramisu", p:"€6.50", d:"Grandma's recipe. Not our grandma — the Italian one down the street.", t:["Classic"]}
+  ],
+  drink: [
+    {n:"Helles, 0.5 l", p:"€4.90", d:"Crisp Bavarian lager on tap.", t:["On Tap"]},
+    {n:"Weißbier, 0.5 l", p:"€5.20", d:"Cloudy wheat beer with notes of banana and clove.", t:["On Tap"]},
+    {n:"Aperol Spritz", p:"€7.50", d:"The Italian half of the family, on ice.", t:["Cocktail"]},
+    {n:"Apfelschorle", p:"€3.50", d:"Apple juice and sparkling water. The German national drink.", t:["Non-alcoholic"]}
+  ]
+};
+
+const grid = document.getElementById('menuGrid');
+function tagClass(t){ if(t.includes('★')) return 'tag star'; if(/Spicy|Controversial/.test(t)) return 'tag hot'; return 'tag'; }
+function render(cat){
+  grid.innerHTML = MENU[cat].map(i => `
+    <article class="item">
+      <div class="item-top"><h3>${i.n}</h3><span class="price">${i.p}</span></div>
+      <p>${i.d}</p>
+      <div class="tags">${i.t.map(t=>`<span class="${tagClass(t)}">${t.replace('★',' ★')}</span>`).join('')}</div>
+    </article>`).join('');
+}
+render('pizza');
+document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.tab').forEach(x => x.setAttribute('aria-selected','false'));
+  b.setAttribute('aria-selected','true');
+  render(b.dataset.cat);
+}));
+
+// Mobile menu
+const toggle = document.getElementById('toggle'), links = document.getElementById('links');
+toggle.addEventListener('click', () => {
+  const open = links.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', open);
+});
+links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+// Highlight today's hours
+const today = new Date().getDay();
+const li = document.querySelector(`#hours li[data-day="${today}"]`);
+if (li) li.classList.add('today');
+
+// Date min = today
+const dateEl = document.getElementById('date');
+dateEl.min = new Date().toISOString().split('T')[0];
+
+// Reservation form (demo — no backend connected)
+document.getElementById('reserve').addEventListener('submit', e => {
+  e.preventDefault();
+  const name = document.getElementById('name').value.trim();
+  const d = new Date(dateEl.value + 'T00:00');
+  if (d.getDay() === 1) {
+    showConfirm("Sorry, we're closed on Mondays — please pick another day.");
+    return;
+  }
+  const when = d.toLocaleDateString('en-GB', {weekday:'long', day:'numeric', month:'long'});
+  const time = document.getElementById('time').value;
+  const guests = document.getElementById('guests').value;
+  showConfirm(`Danke, ${name}! Your request for ${guests} on ${when} at ${time} is noted. (Online booking isn't connected yet — please call to confirm.)`);
+});
+function showConfirm(msg){ const c = document.getElementById('confirm'); c.textContent = msg; c.style.display = 'block'; }
+
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
