@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://germanish-pizzeria-varinder.netlify.app/sitemap.xml
