@@ -165,9 +165,9 @@
 <header class="hero" id="top">
   <div class="wrap">
     <div>
-      <span class="eyebrow">Pizzeria · Biergarten · Since today</span>
+      <span class="eyebrow">Pizzeria · Family-friendly · Since today</span>
       <h1>Italian dough.<br><em>German</em> soul.</h1>
-      <p class="lede">Wood-fired pizza made the way Naples taught us — by the slice, by the pie, or by the metre, topped with everything Oma would approve of. Bratwurst, pretzel crusts, sauerkraut and a very serious attitude about beer.</p>
+      <p class="lede">Wood-fired pizza made the way Naples taught us — by the slice, by the pie, or by the metre, topped with everything Oma would approve of. Bratwurst, pretzel crusts, sauerkraut and a very serious attitude about Apfelschorle.</p>
       <div class="hero-actions">
         <a href="#menu" class="btn">See the menu</a>
         <a href="#visit" class="btn ghost">Book a table</a>
@@ -186,7 +186,7 @@
 </header>
 
 <div class="ticker" aria-hidden="true">
-  <span>Wood-fired <b>✦</b> Bratwurst on everything <b>✦</b> 2-metre pizzas <b>✦</b> Biergarten open <b>✦</b> Prost &amp; Salute <b>✦</b> Wood-fired <b>✦</b> Bratwurst on everything <b>✦</b> 2-metre pizzas <b>✦</b> Biergarten open <b>✦</b> Prost &amp; Salute <b>✦</b> </span>
+  <span>Wood-fired <b>✦</b> Bratwurst on everything <b>✦</b> 2-metre pizzas <b>✦</b> Family-friendly <b>✦</b> Guten Appetit <b>✦</b> Wood-fired <b>✦</b> Bratwurst on everything <b>✦</b> 2-metre pizzas <b>✦</b> Family-friendly <b>✦</b> Guten Appetit <b>✦</b> </span>
 </div>
 
 <section id="menu">
@@ -211,13 +211,13 @@
     <div>
       <span class="eyebrow" style="color:var(--gold)">Unsere Geschichte</span>
       <h2>A little bit Napoli,<br>a lot of <em>Bavaria</em>.</h2>
-      <p>Germanish started with one question asked too late at a beer festival: what if a Margherita and a Brezel had a baby? Turns out the answer is delicious.</p>
+      <p>Germanish started with one question asked too late at a Christmas market: what if a Margherita and a Brezel had a baby? Turns out the answer is delicious.</p>
       <p>We use slow-fermented Italian dough, San Marzano tomatoes and real fior di latte — then we bring in the good stuff from home: smoky sausages from the butcher, tangy sauerkraut, sharp mustard and mountain cheese.</p>
     </div>
     <div class="stats">
       <div class="stat"><b>48h</b><span>dough fermentation</span></div>
       <div class="stat"><b>450°</b><span>wood-fired oven</span></div>
-      <div class="stat"><b>12</b><span>beers on tap</span></div>
+      <div class="stat"><b>0%</b><span>alcohol, 100% family-friendly</span></div>
       <div class="stat"><b>1</b><span>very happy Oma</span></div>
     </div>
   </div>
@@ -279,7 +279,7 @@
 <footer>
   <div class="wrap">
     <a href="#top" class="logo">Germanish Pizzeria</a>
-    <span>Prost &amp; buon appetito · © <span id="year"></span> Germanish Pizzeria</span>
+    <span>Guten Appetit &amp; buon appetito · © <span id="year"></span> Germanish Pizzeria</span>
   </div>
 </footer>
 
@@ -303,15 +303,18 @@ const MENU = {
     {n:"Garlic Brezel Knots", p:"€5.50", d:"Pretzel-dough knots brushed with garlic butter and parmesan.", t:["Vegetarian"]}
   ],
   sweet: [
-    {n:"Black Forest Pizza", p:"€8.90", d:"Chocolate base, sour cherries, whipped cream, a splash of Kirsch, chocolate shavings.", t:["Bestseller★"]},
+    {n:"Black Forest Pizza", p:"€8.90", d:"Chocolate base, sour cherries, whipped cream, chocolate shavings.", t:["Bestseller★"]},
     {n:"Apfelstrudel Calzone", p:"€7.90", d:"Folded dough with cinnamon apples and raisins, served with vanilla sauce.", t:["Warm"]},
     {n:"Tiramisu", p:"€6.50", d:"Grandma's recipe. Not our grandma — the Italian one down the street.", t:["Classic"]}
   ],
   drink: [
-    {n:"Helles, 0.5 l", p:"€4.90", d:"Crisp Bavarian lager on tap.", t:["On Tap"]},
-    {n:"Weißbier, 0.5 l", p:"€5.20", d:"Cloudy wheat beer with notes of banana and clove.", t:["On Tap"]},
-    {n:"Aperol Spritz", p:"€7.50", d:"The Italian half of the family, on ice.", t:["Cocktail"]},
-    {n:"Apfelschorle", p:"€3.50", d:"Apple juice and sparkling water. The German national drink.", t:["Non-alcoholic"]}
+    {n:"Apfelschorle, 0.5 l", p:"€3.50", d:"Apple juice and sparkling water. The German national drink.", t:["Bestseller★"]},
+    {n:"Homemade Lemonade, 0.4 l", p:"€3.90", d:"Fresh lemons, a little sugar, lots of ice. Try the elderflower version.", t:["Homemade"]},
+    {n:"Spezi, 0.5 l", p:"€3.50", d:"The classic German cola and orange mix.", t:["Classic"]},
+    {n:"Rhubarb Schorle, 0.5 l", p:"€3.90", d:"Sweet-sour rhubarb juice with sparkling water.", t:["Seasonal"]},
+    {n:"Italian Blood-Orange Soda, 0.33 l", p:"€3.20", d:"Bright, bubbly and very Sicilian.", t:["Italian"]},
+    {n:"Cola / Cola Zero, 0.33 l", p:"€2.90", d:"Ice cold, with a slice of lemon if you like.", t:["Soft Drink"]},
+    {n:"Still or Sparkling Water, 0.75 l", p:"€4.50", d:"For the table.", t:["Water"]}
   ]
 };
 
